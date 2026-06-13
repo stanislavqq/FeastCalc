@@ -31,7 +31,7 @@ jobs:
           SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+#          TARGET: ${{ secrets.REMOTE_TARGET }}
           EXCLUDE: "/dist/, /node_modules/"
           SCRIPT_BEFORE: |
             whoami
