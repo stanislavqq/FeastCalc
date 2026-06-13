@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /application
+            cd /services/feast_calc
             git pull origin main
           
             # Create .env file from GitHub secrets
@@ -43,6 +43,8 @@ jobs:
             APP_ENV=prod
             FISCAL_TOKEN=${{ secrets.FISCAL_TOKEN }}
             EOL
+            composer install
+            docker compose up -d --build --force-recreate
           
 
 #
