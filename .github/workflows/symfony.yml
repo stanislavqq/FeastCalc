@@ -30,8 +30,4 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} << EOF
-            cd /services/feast_calc
-            git pull origin main
-            docker-compose up -d --build --force-recreate
-          EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /services/feast_calc && git pull origin main && docker-compose up -d --build --force-recreate"
