@@ -4,12 +4,9 @@ namespace App\Controller;
 
 use App\Service\Fiscal\FiscalService;
 use App\Service\TableService;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
-use ZipArchive;
 
 final class RootController extends AbstractController
 {
@@ -19,7 +16,7 @@ final class RootController extends AbstractController
         TableService $tableService,
     ): JsonResponse
     {
-        $imagePath = '../qr2.jpg';
+        $imagePath = '../tmp/qr2.jpg';
 
         $check = $service->loadCheckData($imagePath);
         $tableService

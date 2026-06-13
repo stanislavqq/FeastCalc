@@ -36,8 +36,10 @@ class Check
 
     public function get(int $offset) : ?CheckItem
     {
-        if (isset($this->items[$offset])) {
-            return $this->items[$offset];
+        $values = array_values($this->items);
+
+        if (isset($values[$offset])) {
+            return $values[$offset];
         }
 
         return null;

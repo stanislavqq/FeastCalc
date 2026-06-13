@@ -77,12 +77,12 @@ class CheckTest extends TestCase
 }
 JSON;
 
-        $check = Check::parseJson($json);
+        $check = Check::parseArray(json_decode($json, true));
 
         self::assertEquals("2025-12-19 23:47:00", $check->getDateTime()->format('Y-m-d H:i:s'));
         self::assertEquals(6179800, $check->getTotalSum());
         self::assertEquals("Мохито б/а NEW", $check->get(0)?->getName());
         self::assertEquals(null, $check->get(-1)?->getName());
-        self::assertEquals(3, $check->getItemsCount());
+        self::assertEquals(2, $check->getItemsCount());
     }
 }
