@@ -22,7 +22,7 @@ jobs:
       - name: Set up SSH
         run: | 
           install -m 600 -D /dev/null ~/.ssh/id_rsa
-          echo "${{ SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} > ~/.ssh/known_hosts
 
       - name: Deploy to server
