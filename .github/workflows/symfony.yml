@@ -65,7 +65,6 @@ jobs:
             APP_ENV=prod
             FISCAL_TOKEN=${{ secrets.FISCAL_TOKEN }}
             EOL
-            composer install
             docker compose up -d --build --force-recreate
           
 
