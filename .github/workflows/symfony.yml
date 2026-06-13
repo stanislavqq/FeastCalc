@@ -37,11 +37,9 @@ jobs:
             cd /services/feast_calc
             git pull origin main
           
-            # Create .env file from GitHub secrets
-            cat > .env << EOL
-            APP_ENV=prod
-            FISCAL_TOKEN=${{ secrets.FISCAL_TOKEN }}
-            EOL
+            echo APP_ENV=prod >> .env
+            echo FISCAL_TOKEN=${{ secrets.FISCAL_TOKEN }} >> .env
+          
             docker compose down
             docker compose up -d --build --force-recreate
         
