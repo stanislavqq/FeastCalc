@@ -13,8 +13,8 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install zip
 
-RUN mkdir -p /application/tmp \
-    && chmod 777 /application/tmp \
-    && chmod 777 /application/var/cache -R \
+RUN mkdir -p tmp \
+    && chmod 777 tmp -R \
+    && chmod 777 var/cache -R \
     && php bin/console asset-map:compile --env=prod --no-debug \
     && composer install
