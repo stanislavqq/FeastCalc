@@ -37,8 +37,8 @@ jobs:
             cd /services/feast_calc
             git pull origin main
           
-            echo APP_ENV=prod >> .env
-            echo FISCAL_TOKEN=${{ secrets.FISCAL_TOKEN }} >> .env
+            echo APP_ENV=prod >> app/.env
+            echo FISCAL_TOKEN=${{ secrets.FISCAL_TOKEN }} >> app/.env
           
             docker compose down
             docker compose up -d --build --force-recreate

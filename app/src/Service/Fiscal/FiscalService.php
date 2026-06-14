@@ -4,6 +4,7 @@ namespace App\Service\Fiscal;
 
 use chillerlan\QRCode\QRCode;
 use Symfony\Component\Cache\CacheItem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Contracts\Cache\CacheInterface;
 
 class FiscalService
@@ -15,9 +16,9 @@ class FiscalService
     {
     }
 
-    public function loadCheckData(string $filePath) : Check
+    public function loadCheckData(UploadedFile $file) : Check
     {
-        $qrData = $this->parseQR($filePath);
+        $qrData = $this->parseQR($file);
 
         $responseData = $this->cache->get($qrData, function (CacheItem $cacheItem) use ($qrData) {
             $cacheItem->expiresAfter(3600);
@@ -28,11 +29,12 @@ class FiscalService
         $check = Check::parseArray($responseData);
         return $check;
     }
-    public function parseQR(string $filePath) : string
+    public function parseQR(UploadedFile $file) : string
     {
 
         try {
-            $result = new QRCode()->readFromFile($filePath);
+            $blobData = file_get_contents($file->getPathname());
+            $result = new QRCode()->readFromBlob($blobData);
         } catch (\Throwable $e) {
             throw $e;
         }

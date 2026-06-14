@@ -17,8 +17,6 @@ class TableService
     public function __construct(
         #[Autowire(env: "TABLE_TEMPLATE")]
         string $tableTemplate,
-        #[Autowire(env: "TABLE_SAVE_PATH")]
-        private string $tableSave,
     )
     {
         if (!file_exists($tableTemplate)) {
@@ -29,10 +27,10 @@ class TableService
         $this->worksheet = $this->spreadsheet->getActiveSheet();
     }
 
-    public function generate() : void
+    public function generate(string $savePath) : void
     {
         $writer = IOFactory::createWriter($this->spreadsheet, 'Xls');
-        $writer->save($this->tableSave);
+        $writer->save($savePath);
     }
     public function setPersonCount(int $count): self
     {

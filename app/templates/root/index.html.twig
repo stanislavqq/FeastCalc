@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="table-form">
+            {{ form(form) }}
+
+
+            <div class="success-message">
+                {% if loadSuccess %}
+                    <div>
+                        {{ successMessage }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
