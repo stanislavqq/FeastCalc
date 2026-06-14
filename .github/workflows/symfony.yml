@@ -15,8 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: test
-        run: | 
+      - name: start deploy
+        run: |
+          curl https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage -d "text=Начал деплой feastCalc" -d "chat_id=${{ secrets.CHAT_ID }}"
 
       - name: Checkout code
         uses: actions/checkout@v3
