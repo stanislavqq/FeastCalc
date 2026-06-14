@@ -16,7 +16,7 @@ class QRRequestDTO
                 ],
                 "qr_file" => [
                     new Assert\NotBlank(message: "Qr file обязателен"),
-                    new Assert\Image(maxSize: '1024k', maxSizeMessage: "Файл слишком большой")
+                    new Assert\Image(maxSize: '10240k', maxSizeMessage: "Файл слишком большой")
                 ],
                 "save" => null,
                 "_token" => null

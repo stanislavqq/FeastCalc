@@ -5,7 +5,7 @@ services:
     working_dir: /application
     volumes:
       - ./app:/application
-      - ./infra/php.ini:/usr/local/etc/php/conf.d/z-docker-php.ini
+      - ./infra/php.ini:/usr/local/etc/php/conf.d/docker-app-php.ini
 
   nginx:
     image: nginx:latest
