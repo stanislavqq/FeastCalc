@@ -46,7 +46,7 @@ jobs:
 
       - name: success message
         run: |
-          curl "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage?text=Деплой feast_calc завершен&chat_id=${{ secrets.CHAT_ID }}"
+          curl https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage -d "text=Деплой feast_calc завершен" -d "chat_id=${{ secrets.CHAT_ID }}"
 
 #
 #      - name: Deploy to server
