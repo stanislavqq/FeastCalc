@@ -13,6 +13,7 @@ RUN apt-get update \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install zip \
     && mkdir -p /application/tmp \
-    && chmod 777 /application/tmp
+    && chmod 777 /application/tmp \
+    && chmod 777 /application/var/cache -R
 
 RUN composer install
