@@ -44,6 +44,10 @@ jobs:
             docker compose up -d --build --force-recreate
         
 
+      - name: success message
+        run: |
+          curl "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage?text=Деплой feast_calc завершен&chat_id=${{ secrets.CHAT_ID }}"
+
 #
 #      - name: Deploy to server
 #        run: ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd /services/feast_calc && git pull origin main && docker compose up -d --build --force-recreate"
