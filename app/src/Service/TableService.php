@@ -4,8 +4,10 @@ namespace App\Service;
 
 use App\Service\Fiscal\Check;
 use App\Service\Fiscal\CheckItem;
+use PhpOffice\PhpSpreadsheet\Cell\AddressHelper;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -35,7 +37,7 @@ class TableService
     public function setPersonCount(int $count): self
     {
         if ($count > 0) {
-            $this->worksheet->setCellValue("B46", $count);
+            $this->worksheet->setCellValue("B70", $count);
         }
 
         if ($count <= 1) {
@@ -43,16 +45,29 @@ class TableService
         }
 
         $dataArray = $this->worksheet->rangeToArray(
-            "F1:G44",
+            "F1:G68",
             NULL,   // Null value for empty cells
             false,   // Return formulas as calculated values
         );
 
+        //$refHelper = ReferenceHelper::getInstance();
+
         for ($i = 8, $c = 0; $c < $count-1; $i+=2, $c++) {
+
+
+//            for ($j = 2; $j < count($dataArray)- 1; $j++) {
+//                $row = $dataArray[$j];
+//                $formula = $refHelper->updateFormulaReferences(
+//                    $row[1],
+//                    Coordinate::stringFromColumnIndex(7) . "3",
+//                    2
+//                );
+//            }
+
             $this->worksheet->fromArray(
                 $dataArray,
                 null,
-                Coordinate::stringFromColumnIndex($i) . "1"
+                Coordinate::stringFromColumnIndex($i) . "1",
             );
         }
 
@@ -61,7 +76,7 @@ class TableService
 
     public function setTotal(Check $check): self
     {
-        $this->worksheet->getCell('D45')->setValue($check->getTotalSum()/100);
+        $this->worksheet->getCell('D69')->setValue($check->getTotalSum()/100);
         return $this;
     }
 

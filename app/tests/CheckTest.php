@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\Service\Fiscal\CheckItem;
 use PHPUnit\Framework\TestCase;
 use App\Service\Fiscal\Check;
 
@@ -72,6 +73,48 @@ class CheckTest extends TestCase
             "paymentType": 4,
             "productType": 33,
             "checkingProdInformationResult": 0
+        },
+        {
+            "nds": 6,
+            "sum": 104000,
+            "name": "Вайценфельд Вайс 0,5",
+            "price": 104000,
+            "quantity": 1,
+            "paymentType": 4,
+            "productType": 33,
+            "productCodeNew": {
+                "itf14": {
+                    "gtin": "04640000124939",
+                    "sernum": "",
+                    "productIdType": 5,
+                    "rawProductCode": "04640000124939"
+                }
+            },
+            "labelCodeProcesMode": 0,
+            "itemsIndustryDetails": [
+                {
+                    "idFoiv": "048",
+                    "industryPropValue": "mode=horeca",
+                    "foundationDocNumber": "597",
+                    "foundationDocDateTime": "29.12.2022"
+                }
+            ],
+            "itemsQuantityMeasure": 41,
+            "checkingProdInformationResult": 0
+        },
+        {
+            "sum": 104000,
+            "name": "test pos 0,5",
+            "price": 104000,
+            "quantity": 1,
+            "itemsQuantityMeasure": 41
+        },
+        {
+            "sum": 104000,
+            "name": "test pos 0,5",
+            "price": 104000,
+            "quantity": 1,
+            "itemsQuantityMeasure": 41
         }
     ]
 }
@@ -83,6 +126,36 @@ JSON;
         self::assertEquals(6179800, $check->getTotalSum());
         self::assertEquals("Мохито б/а NEW", $check->get(0)?->getName());
         self::assertEquals(null, $check->get(-1)?->getName());
-        self::assertEquals(2, $check->getItemsCount());
+        self::assertEquals(4, $check->getItemsCount());
+
+
+        self::assertEquals("Вайсмюллер Хефевайсбир 0.5", $check->get(1)->getName());
+//        dd($check->get(1)->price / $check->get(1)->sum);
+        self::assertEquals(1, $check->get(1)->quantity);
+
+        self::assertEquals("Вайценфельд Вайс 0,5", $check->get(2)->getName());
+        self::assertEquals(2, $check->get(2)->quantity);
+
+        self::assertEquals("test pos 0,5", $check->get(3)->getName());
+        self::assertEquals(4, $check->get(3)->quantity);
+    }
+
+    public function testMerge()
+    {
+        $item = new CheckItem("test item", "100", "1", "100");
+        $item2 = new CheckItem("test item", "100", "1", "100");
+
+        self::assertEquals("test item", $item->getName());
+        self::assertEquals(100, $item->getPrice());
+        self::assertEquals(100, $item->getSum());
+        self::assertEquals(1, $item->getQuantity());
+
+        $item = $item->merge($item2);
+
+        self::assertEquals("test item", $item->getName());
+        self::assertEquals(100, $item->getPrice());
+        self::assertEquals(200, $item->getSum());
+        self::assertEquals(2, $item->getQuantity());
+
     }
 }
