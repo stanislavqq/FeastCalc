@@ -14,7 +14,8 @@ RUN apt-get update \
     && docker-php-ext-install zip
 
 RUN mkdir -p tmp \
+    && mkdir -p var/cache \
     && chmod 777 tmp -R \
     && chmod 777 var/cache -R \
-    && php bin/console asset-map:compile --env=prod --no-debug \
-    && composer install
+    && composer install \
+    && php bin/console asset-map:compile --env=prod --no-debug
